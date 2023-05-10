@@ -28,6 +28,7 @@ const UserSchema = new Schema({
     coverimage: 'String',
     avatar: 'String',
     desc: 'String',
+    worksat: 'String',
     skills: [],
 
 }, { timestamps: true });

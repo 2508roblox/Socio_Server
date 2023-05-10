@@ -24,6 +24,8 @@ export const GetAllUserPost = async (req, res) => {
 export const GetTimeline = async (req, res) => {
     try {
         let userid = req.params.id
+        // let page = req.params.page
+        // let SKIP_DOCS = (page - 1) * 5
         let friends = await FriendModel.find({
             $or: [
                 { userid: { $ne: userid }, friendid: userid, status: 'confirmed' },
@@ -33,7 +35,10 @@ export const GetTimeline = async (req, res) => {
         let friendsId = friends.map((friend) => friend.userid.toString() === userid ? friend.friendid.toString() : friend.userid.toString())
         let data = await PostModel.find({
             userid: { $in: [...friendsId, userid] }
-        })
+        }).sort({ createdAt: -1 })
+            
+        // .skip(SKIP_DOCS)
+        //     .limit(5)
         res.status(200).json(data)
 
     } catch (error) {

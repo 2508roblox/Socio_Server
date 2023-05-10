@@ -20,7 +20,7 @@ const server = http.createServer(app)
 // config io
 const io = new Server({
     cors: {
-        origin: "http://localhost:3000"
+        origin: "http://giangg.site"
     }
 });
 io.listen(4000);
